@@ -7,7 +7,7 @@ import bxAward from '@iconify/icons-bx/bx-award';
 import styled from 'styled-components';
 import { FlexContainer, FloatingButton } from '../../components/styled';
 
-import { useGameState } from '../../hooks/useGameState';
+import { usePlayersState } from '../../hooks/usePlayersState';
 
 import Board from './Board/Board';
 import PlayerWidget from './PlayerWidget';
@@ -52,7 +52,7 @@ const PrizeTitle = (props) => {
 };
 
 const Game = (props) => {
-    const [state] = useGameState();
+    const [state] = usePlayersState();
     const { players } = state;
 
     return (

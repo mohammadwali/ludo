@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import { Square, Token } from '../../../components/styled';
 import { Ranges } from '../../../constant';
-import { useGameState } from '../../../hooks/useGameState';
+import { useBoardState } from '../../../hooks/useBoardState';
 import { findTokensByBlockPosition } from '../../../utils/findTokensByBlockPosition';
 
 const Container = styled.div`
@@ -34,16 +34,17 @@ const getFlexDirectionByHomeDirection = (direction) => {
 };
 
 const SquareBlock = (props) => {
-    const [state] = useGameState();
+    const [{ tokenPosition }] = useBoardState();
+
     const { color, pos } = props;
-    const tokens = findTokensByBlockPosition(pos, state.board.tokenPosition);
+    const tokens = findTokensByBlockPosition(pos, tokenPosition);
 
     const renderTokens = useCallback(() => tokens.map(({ tokenColor, tokenIndex }) => {
-        if (get(state, ['board', 'tokenPosition', tokenColor, tokenIndex]) === pos) {
+        if (get(tokenPosition, [tokenColor, tokenIndex]) === pos) {
             return <Token key={tokenIndex + tokenColor} color={tokenColor} count={tokens.length}/>;
         }
         return null;
-    }), [pos, state, tokens]);
+    }), [pos, tokenPosition, tokens]);
 
     return (
         <Square

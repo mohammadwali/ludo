@@ -4,12 +4,13 @@ import styled from 'styled-components';
 
 import {
     Circle,
+    Token,
     TokenRow,
     TokenBlock,
-    CenteredBox, TokenPlaceHolder, Token
+    TokenPlaceHolder,
+    CenteredBox
 } from '../../../components/styled';
-import { useGameState } from '../../../hooks/useGameState';
-
+import { useBoardState } from '../../../hooks/useBoardState';
 
 const Container = styled(CenteredBox)`
     height: 215px;
@@ -18,8 +19,7 @@ const Container = styled(CenteredBox)`
 
 const HomeBox = (props) => {
     const { color, ranges } = props;
-    const [state] = useGameState();
-    const { board: { tokenPosition } } = state;
+    const [{ tokenPosition }] = useBoardState();
 
     const renderTokenOnPosition = useCallback((key, pos) => {
         if (tokenPosition[color][key] === pos) {
