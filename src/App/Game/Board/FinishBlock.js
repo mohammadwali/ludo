@@ -7,7 +7,7 @@ import {
     TriangleLeft,
     TriangleRight,
     TriangleTop
-} from '../../components/styled';
+} from '../../../components/styled';
 
 const Container = styled(Box)`
     position: relative;

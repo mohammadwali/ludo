@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { ColorName, Ranges } from '../../constant';
+import { ColorName, Ranges } from '../../../constant';
 
 import HomeBox from './HomeBox';
 import FinishBlock from './FinishBlock';
 import SquaresBlock from './SquaresBlock';
 
-import { FlexContainer } from '../../components/styled';
+import { FlexContainer } from '../../../components/styled';
 
 const BoardContainer = styled(FlexContainer)`
     border-collapse: collapse;

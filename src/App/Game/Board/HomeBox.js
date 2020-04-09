@@ -7,8 +7,8 @@ import {
     TokenRow,
     TokenBlock,
     CenteredBox, TokenPlaceHolder, Token
-} from '../../components/styled';
-import { useGameState } from '../../hooks/useGameState';
+} from '../../../components/styled';
+import { useGameState } from '../../../hooks/useGameState';
 
 
 const Container = styled(CenteredBox)`

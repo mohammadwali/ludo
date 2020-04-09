@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDice from 'react-dice-complete';
-import { ColorMap } from '../constant';
+import { ColorMap } from '../../constant';
 
 const Dice = (props) => {
     const { player } = props;

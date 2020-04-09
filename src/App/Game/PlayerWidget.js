@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import 'react-dice-complete/dist/react-dice-complete.css'
-import { MicrophoneIcon } from '../components/MicrophoneIcon';
-import { Card, FlexContainer, DiceContainer } from '../components/styled';
-import { ColorMap } from '../constant';
+import MicrophoneIcon from '../../components/MicrophoneIcon';
+import { Card, FlexContainer, DiceContainer } from '../../components/styled';
+import { ColorMap } from '../../constant';
 
 import { InlineIcon } from '@iconify/react';
 import bxAward from '@iconify/icons-bx/bx-award';

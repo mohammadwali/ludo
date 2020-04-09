@@ -3,10 +3,10 @@ import { get } from 'lodash/object';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { Square, Token } from '../../components/styled';
-import { Ranges } from '../../constant';
-import { useGameState } from '../../hooks/useGameState';
-import { findTokensByBlockPosition } from '../../utils/findTokensByBlockPosition';
+import { Square, Token } from '../../../components/styled';
+import { Ranges } from '../../../constant';
+import { useGameState } from '../../../hooks/useGameState';
+import { findTokensByBlockPosition } from '../../../utils/findTokensByBlockPosition';
 
 const Container = styled.div`
   display: flex;
