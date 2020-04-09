@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import 'react-dice-complete/dist/react-dice-complete.css'
-import { Card, FlexContainer } from '../components/styled';
+import { MicrophoneIcon } from '../components/MicrophoneIcon';
+import { Card, FlexContainer, DiceContainer } from '../components/styled';
 import { ColorMap } from '../constant';
 
 import { InlineIcon } from '@iconify/react';
 import bxAward from '@iconify/icons-bx/bx-award';
 import IconCoins from '@iconify/icons-vaadin/coin-piles';
-import IconMicrophoneOn from '@iconify/icons-bx/bxs-microphone';
-import IconMicrophoneOff from '@iconify/icons-bx/bxs-microphone-off';
+
 import Dice from './Dice';
 
 const Container = styled(Card)`
@@ -18,19 +18,6 @@ const Container = styled(Card)`
     min-height: 78px;
     flex-direction: ${props => props.placement};
     background: ${props => ColorMap[props.color]};
-`;
-
-const DiceContainer = styled.div`
-    flex: .35;
-    padding: .5em;
-    background: rgba(0, 0, 0, .4);
-    border-radius-right: 50%;
-    
-    & .die span.dot{
-        width: 12px !important;
-        height: 12px !important;
-        top: 42px;
-    }
 `;
 
 const PlayerBlockContainer = styled(FlexContainer)`
@@ -51,12 +38,14 @@ const PlayerAvatar = styled(FlexContainer)`
     margin-right: .5em;
 `;
 
-const PlayerTitle = styled.div`
+const PlayerTitle = styled(FlexContainer)`
     padding: 0;
     color: rgba(0, 0, 0, .65);
     font-weight: bold;
     width: 100%;
     font-size: 1em;
+    flex: 1;
+    align-items: center;
 `;
 
 const Row = styled(FlexContainer)`
@@ -100,7 +89,7 @@ const DiceBlock = (props) => {
 
 const PlayerBlock = (props) => {
     const { player } = props;
-    const microphoneIcon = player.isMicrophoneEnabled ? IconMicrophoneOn : IconMicrophoneOff;
+
     return (
         <PlayerBlockContainer>
             <Row>
@@ -110,13 +99,12 @@ const PlayerBlock = (props) => {
                         src={player.avatar.url}
                     />
                 </PlayerAvatar>
-                <FlexContainer centered>
-                    <PlayerTitle>
-                        {player.name}
-                    </PlayerTitle>
-                </FlexContainer>
+                <PlayerTitle>{player.name}</PlayerTitle>
                 <PlayerMicrophoneIcon centered>
-                    <Icon icon={microphoneIcon}/>
+                    <MicrophoneIcon
+                        width={20}
+                        color={'rgba(0, 0, 0, .5)'}
+                        isEnabled={player.isMicrophoneEnabled}/>
                 </PlayerMicrophoneIcon>
             </Row>
 

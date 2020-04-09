@@ -58,8 +58,8 @@ export const TokenBlock = styled.div`
 `;
 
 export const Token = styled.div`
-    width: ${props => (props.count ? 1.5 / props.count : 1.5)}em;
-    height: ${props => (props.count ? 1.5 / props.count : 1.5)}em;
+    width: ${props => (props.count ? 2 / props.count : 2)}em;
+    height: ${props => (props.count ? 2 / props.count : 2)}em;
     border-radius: 100%;
     background: ${props => props.color ? ColorMap[props.color] : 'none'};
     border: 4px inset rgba(0, 0, 0, 0.2);
@@ -100,4 +100,50 @@ export const TriangleBottom = styled(Triangle)`
     border-left: 54px solid transparent;
     border-right: 54px solid transparent;
     border-top: 54px solid ${ColorMap.green};
+`;
+
+export const DiceContainer = styled.div`
+    cursor: pointer;
+    flex: .35;
+    padding: .5em;
+    background: rgba(0, 0, 0, .4);
+    border-radius-right: 50%;
+    
+    & .die {
+        & span.dot{
+            width: 12px !important;
+            height: 12px !important;
+            top: 42px;
+        }
+       & div.face {
+            border-raduius: 5px;
+       } 
+    }
+`;
+
+export const FloatingButton = styled.button`
+    display: block;
+    width: 6em;
+    height: 6em;
+    z-index: 999;
+    border-radius: 50%;
+    color: #848484;
+    background: #FFF;
+    cursor: pointer;
+    box-shadow: 0 0 4px rgba(0, 0, 0, .14), 0 4px 8px rgba(0, 0, 0, .28);
+    transition: all .1s ease-out;
+    
+    border: 0;
+    position: fixed;
+    right: 3em;
+    bottom: 5em;
+    outline: none;
+    
+    &:hover {
+       transform: scale(1.05);
+    }
+    
+    &:hover, &:active{
+        outline: none;
+    }
 `;
