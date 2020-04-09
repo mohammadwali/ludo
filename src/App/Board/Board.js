@@ -1,30 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import { ColorName, Ranges } from '../../constant';
-import { arrayRange } from '../../utils/range';
 
 import HomeBox from './HomeBox';
 import FinishBlock from './FinishBlock';
 import SquaresBlock from './SquaresBlock';
 
-import { Box } from '../../components/styled';
+import { FlexContainer } from '../../components/styled';
 
-const BoardContainer = styled(Box)`
-    width: 540px;
-    height: 540px;
+const BoardContainer = styled(FlexContainer)`
     border-collapse: collapse;
     background: #fff;
-`;
-
-const Layer = styled.div`
-   display: flex;
 `;
 
 const Board = (props) => {
     return (
         <BoardContainer>
-            <Layer>
+            <FlexContainer>
                 <div>
                     <HomeBox
                         color={ColorName.RED}
@@ -68,7 +61,7 @@ const Board = (props) => {
                         ranges={Ranges.Tokens[ColorName.YELLOW]}
                     />
                 </div>
-            </Layer>
+            </FlexContainer>
         </BoardContainer>
     );
 };

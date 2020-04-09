@@ -7,11 +7,27 @@ export const ColorName = {
     YELLOW: 'yellow',
 };
 
+/*
+    TODO: Implement me :)
+
+    @keyframes pulse {
+      0% {
+        background-color:  #7eace5;
+      }
+      33.3333% {
+        background-color: #3577ca;
+      }
+      100% {
+        background-color:  #7eace5
+      }`
+    }
+*/
+
 export const ColorMap = {
-    RED: '#ff6f6f',
-    BLUE: '#4a90e2',
-    GREEN: '#b8e986',
-    YELLOW: '#ffe578'
+    red: '#ff6f6f',
+    blue: '#7eace5',
+    green: '#b8e986',
+    yellow: '#ffe578'
 };
 
 const tokenPositionRanges = arrayRange([0, 16], 4);

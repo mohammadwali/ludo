@@ -11,7 +11,7 @@ import {
 import { useGameState } from '../../hooks/useGameState';
 
 
-export const Container = styled(CenteredBox)`
+const Container = styled(CenteredBox)`
     height: 215px;
     width: 215px;
 `;

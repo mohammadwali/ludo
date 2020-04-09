@@ -23,9 +23,47 @@ import { ColorMap, ColorName, Ranges } from '../constant';
 
 const initialState = {
     players: [
-        { color: ColorName.RED, name: 'player 1' },
-        { color: ColorMap.BLUE, name: 'player 2' }
+        {
+            id: 1,
+            name: 'Vanessa Hanson',
+            color: ColorName.RED,
+            avatar: {
+                url: 'https://randomuser.me/api/portraits/women/9.jpg'
+            },
+            isMicrophoneEnabled: false
+        },
+        {
+            id: 3,
+            name: 'Irene Wilson',
+            color: ColorName.GREEN,
+            avatar: {
+                url: 'https://randomuser.me/api/portraits/women/3.jpg'
+            },
+            isMicrophoneEnabled: false
+        },
+        {
+            id: 2,
+            name: 'Antonio Pearson',
+            color: ColorName.BLUE,
+            avatar: {
+                url: 'https://randomuser.me/api/portraits/men/37.jpg'
+            },
+            isMicrophoneEnabled: true
+        },
+        {
+            id: 4,
+            name: 'Liam Harper',
+            color: ColorName.YELLOW,
+            avatar: {
+                url: 'https://randomuser.me/api/portraits/men/93.jpg'
+            },
+            isMicrophoneEnabled: false
+        },
     ],
+
+    dice: {
+        isRolling: false,
+    },
 
     board: {
         tokenPosition: { ...Ranges.Tokens }
