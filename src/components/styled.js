@@ -1,18 +1,12 @@
 import styled from 'styled-components';
 import { ColorMap } from '../constant';
 
-export const Square = styled.div`
-    background: ${props => props.color || 'none'};
-    width: 35px;
-    height: 35px;
-    box-shadow: 0 0 0 1px #dbdbdb;
-    margin: 0 0 1px 1px; 
-`;
-
 export const Box = styled.div`
     display: flex;
-    box-shadow: 0 0 0 1px #dbdbdb;
-    margin: 0 0 1px 1px; 
+    ${props => props.withoutBorder ? '' : `
+             box-shadow: 0 0 0 1px #dbdbdb;
+             margin: 0 0 1px 1px; 
+        `}
 `;
 
 export const CenteredBox = styled(Box)`
@@ -20,10 +14,20 @@ export const CenteredBox = styled(Box)`
     align-items: center;
 `;
 
+export const Square = styled(CenteredBox)`
+    width: 35px;
+    height: 35px;
+    margin: 0 0 1px 1px;
+    box-shadow: 0 0 0 1px #dbdbdb;
+    background-size: 100%;
+    background-image: ${props => props.hasStar ? 'url(\'/images/star.svg\') ' : 'none'};
+    background-color: ${props => props.hasStar ? '#f5f5f5' : (ColorMap[props.color.toUpperCase()] || 'none')}
+`;
+
 export const Circle = styled.div`
-    background: ${props => props.color};
+    background: ${props => ColorMap[props.color.toUpperCase()]};
     border-radius: 100%;
-    padding: 1.5em
+    padding: 1em
 `;
 
 export const TokenRow = styled.div`
@@ -39,11 +43,17 @@ export const TokenBlock = styled.div`
 `;
 
 export const Token = styled.div`
-    width: 2em;
-    height: 2em;
+    width: ${props => (props.count ? 1.5 / props.count : 1.5)}em;
+    height: ${props => (props.count ? 1.5 / props.count : 1.5)}em;
     border-radius: 100%;
-    background: ${props => props.color};
+    background: ${props => props.color ? ColorMap[props.color.toUpperCase()] : 'none'};
     border: 4px inset rgba(0, 0, 0, 0.2);
+    flex-shrink: 0;
+    z-index:1;
+`;
+
+export const TokenPlaceHolder = styled(Token)`
+    border-color: transparent;
 `;
 
 export const Triangle = styled.div`

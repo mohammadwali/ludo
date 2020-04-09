@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import {
     Circle,
-    Token,
     TokenRow,
     TokenBlock,
-    CenteredBox
+    CenteredBox, TokenPlaceHolder, Token
 } from '../../components/styled';
+import { useGameState } from '../../hooks/useGameState';
 
 
 export const Container = styled(CenteredBox)`
@@ -17,24 +17,27 @@ export const Container = styled(CenteredBox)`
 `;
 
 const HomeBox = (props) => {
+    const { color, ranges } = props;
+    const [state] = useGameState();
+    const { board: { tokenPosition } } = state;
+
+    const renderTokenOnPosition = useCallback((key, pos) => {
+        if (tokenPosition[color][key] === pos) {
+            return <Token color={color}/>
+        }
+        return <TokenPlaceHolder/>;
+    }, [tokenPosition, color]);
+
     return (
         <Container {...props}>
             <Circle {...props}>
                 <TokenRow>
-                    <TokenBlock>
-                        <Token color={props.color}/>
-                    </TokenBlock>
-                    <TokenBlock>
-                        <Token color={props.color}/>
-                    </TokenBlock>
+                    <TokenBlock>{renderTokenOnPosition(0, ranges[0])}</TokenBlock>
+                    <TokenBlock>{renderTokenOnPosition(1, ranges[1])}</TokenBlock>
                 </TokenRow>
                 <TokenRow>
-                    <TokenBlock>
-                        <Token color={props.color}/>
-                    </TokenBlock>
-                    <TokenBlock>
-                        <Token color={props.color}/>
-                    </TokenBlock>
+                    <TokenBlock>{renderTokenOnPosition(2, ranges[2])}</TokenBlock>
+                    <TokenBlock>{renderTokenOnPosition(3, ranges[3])}</TokenBlock>
                 </TokenRow>
             </Circle>
         </Container>

@@ -1,68 +1,81 @@
 import React, { useCallback } from 'react';
+import { get } from 'lodash/object';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { Square } from '../../components/styled';
-import { SafeSpotMap } from '../../constant';
-import StarIcon from '../../images/star.svg';
+import { Square, Token } from '../../components/styled';
+import { Ranges } from '../../constant';
+import { useGameState } from '../../hooks/useGameState';
+import { findTokensByBlockPosition } from '../../utils/findTokensByBlockPosition';
 
 const Container = styled.div`
-  display: grid;
-  grid-template-columns: repeat(${props => props.cols || 3}, 1fr);
+  display: flex;
+  flex-direction: ${props => props.direction};
 `;
 
-const HomePosition = {
+const Row = styled.div`
+  display: flex;
+  flex-direction: ${props => props.direction};
+`;
+
+const { SafeSpots, SafeColorSpots } = Ranges;
+
+const HomeDirection = {
     TOP: 'top',
     LEFT: 'left',
     RIGHT: 'right',
     BOTTOM: 'bottom',
 };
 
-const SafeColorSpot = {
-    top: [1, 7, 8, 9, 10, 11],
-    right: [4, 5, 7, 10, 13, 16],
-    bottom: [16, 10, 9, 8, 7, 6],
-    left: [12, 13, 10, 7, 4, 1],
+const getFlexDirectionByHomeDirection = (direction) => {
+    return (direction === HomeDirection.TOP || direction === HomeDirection.BOTTOM) ?
+        { containerDirection: 'column', rowDirection: 'row' } :
+        { containerDirection: 'row', rowDirection: 'column' };
 };
 
-const blocksList = [...Array(18).keys()];
+const SquareBlock = (props) => {
+    const [state] = useGameState();
+    const { color, pos } = props;
+    const tokens = findTokensByBlockPosition(pos, state.board.tokenPosition);
 
-const getColsByHomePosition = (pos) => {
-    return [HomePosition.TOP, HomePosition.BOTTOM].includes(pos) ? 6 : 3;
+    const renderTokens = useCallback(() => tokens.map(({ tokenColor, tokenIndex }) => {
+        if (get(state, ['board', 'tokenPosition', tokenColor, tokenIndex]) === pos) {
+            return <Token key={tokenIndex + tokenColor} color={tokenColor} count={tokens.length}/>;
+        }
+        return null;
+    }), [pos, state, tokens]);
+
+    return (
+        <Square
+            key={pos}
+            color={SafeColorSpots[color].includes(pos) ? color : 'none'}
+            hasStar={SafeSpots.includes(pos)}>
+            {renderTokens()}
+        </Square>
+    )
 };
 
 const SquaresBlock = (props) => {
-    const { homePosition, color } = props;
-    const cols = getColsByHomePosition(homePosition);
-    const SafeSpot = SafeSpotMap[homePosition][2];
-
-    const shouldFillColor = useCallback((index) => {
-        return SafeColorSpot[homePosition].includes(index);
-    }, [homePosition]);
-
+    const { homeDirection, ranges } = props;
+    const { containerDirection, rowDirection } = getFlexDirectionByHomeDirection(homeDirection);
 
     return (
-        <Container cols={cols}>
-            {
-                blocksList.map((index) => (
-                    <Square
-                        key={index}
-                        color={shouldFillColor(index) && color}
-                    >
-                        {index === SafeSpot && <img src={StarIcon} width={'100%'}/>}
-                    </Square>
-                ))
-            }
-
+        <Container direction={containerDirection}>
+            {ranges.map((row, index) => (
+                <Row key={index} direction={rowDirection}>
+                    {row.map((pos) => <SquareBlock key={pos} {...props} pos={pos}/>)}
+                </Row>
+            ))}
         </Container>
     );
 };
 
 SquaresBlock.propTypes = {
     color: PropTypes.string.isRequired,
-    homePosition: PropTypes.string
+    homeDirection: PropTypes.string,
+    ranges: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired
 };
 
-SquaresBlock.HomePosition = HomePosition;
+SquaresBlock.HomeDirection = HomeDirection;
 
 export default SquaresBlock;
