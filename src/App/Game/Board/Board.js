@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { ColorName, Ranges } from '../../../constant';
+import { TokenColorPos } from '../../../constant';
 
 import HomeBox from './HomeBox';
-import FinishBlock from './FinishBlock';
+import FinishBlocks from './FinishBlocks';
 import SquaresBlock from './SquaresBlock';
 
 import { FlexContainer } from '../../../components/styled';
@@ -14,52 +14,24 @@ const BoardContainer = styled(FlexContainer)`
     background: #fff;
 `;
 
-const Board = (props) => {
+const Board = () => {
     return (
         <BoardContainer>
             <FlexContainer>
                 <div>
-                    <HomeBox
-                        color={ColorName.RED}
-                        ranges={Ranges.Tokens[ColorName.RED]}
-                    />
-                    <SquaresBlock
-                        color={ColorName.RED}
-                        ranges={Ranges.Blocks[ColorName.RED]}
-                        homeDirection={SquaresBlock.HomeDirection.TOP}
-                    />
-                    <HomeBox
-                        color={ColorName.BLUE}
-                        ranges={Ranges.Tokens[ColorName.BLUE]}
-                    />
+                    <HomeBox pos={TokenColorPos.TOP_LEFT}/>
+                    <SquaresBlock pos={TokenColorPos.TOP_LEFT}/>
+                    <HomeBox pos={TokenColorPos.BOTTOM_LEFT}/>
                 </div>
                 <div>
-                    <SquaresBlock
-                        color={ColorName.GREEN}
-                        ranges={Ranges.Blocks[ColorName.GREEN]}
-                        homeDirection={SquaresBlock.HomeDirection.RIGHT}
-                    />
-                    <FinishBlock/>
-                    <SquaresBlock
-                        color={ColorName.BLUE}
-                        ranges={Ranges.Blocks[ColorName.BLUE]}
-                        homeDirection={SquaresBlock.HomeDirection.LEFT}
-                    />
+                    <SquaresBlock pos={TokenColorPos.TOP_RIGHT}/>
+                    <FinishBlocks/>
+                    <SquaresBlock pos={TokenColorPos.BOTTOM_LEFT}/>
                 </div>
                 <div>
-                    <HomeBox
-                        color={ColorName.GREEN}
-                        ranges={Ranges.Tokens[ColorName.GREEN]}
-                    />
-                    <SquaresBlock
-                        color={ColorName.YELLOW}
-                        ranges={Ranges.Blocks[ColorName.YELLOW]}
-                        homeDirection={SquaresBlock.HomeDirection.BOTTOM}
-                    />
-                    <HomeBox
-                        color={ColorName.YELLOW}
-                        ranges={Ranges.Tokens[ColorName.YELLOW]}
-                    />
+                    <HomeBox pos={TokenColorPos.TOP_RIGHT}/>
+                    <SquaresBlock pos={TokenColorPos.BOTTOM_RIGHT}/>
+                    <HomeBox pos={TokenColorPos.BOTTOM_RIGHT}/>
                 </div>
             </FlexContainer>
         </BoardContainer>

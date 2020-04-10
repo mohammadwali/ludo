@@ -4,6 +4,8 @@ import { ColorMap } from '../constant';
 export const FlexContainer = styled.div`
     display:flex;
     flex-direction: ${props => props.direction};
+    height: ${props => props.fluid ? '100%' : ''};
+    width: ${props => props.fluid || props.expanded ? '100%' : ''};
 ${
     props => props.centered ? `
         justify-content: center;
@@ -24,7 +26,6 @@ export const CenteredBox = styled(Box)`
 
 export const Card = styled.div`
     display: flex;
-    border: 1px solid #DEDEDE;
     border-radius: 4px;
     box-shadow: 0 2px 2px -1px rgba(0,0,0,.055);
 `;
@@ -54,7 +55,7 @@ export const TokenBlock = styled.div`
     padding: .5em;
     background: #fff;
     display: flex;
-    margin: .6em;
+    margin: 1em;
 `;
 
 export const Token = styled.div`
@@ -80,26 +81,26 @@ export const Triangle = styled.div`
 export const TriangleRight = styled(Triangle)`
     top: 0;
     border-top: 54px solid transparent;
-    border-left: 54px solid ${ColorMap.red};
+    border-left: 54px solid ${props => ColorMap[props.color]};
     border-bottom: 54px solid transparent;
 `;
 export const TriangleLeft = styled(Triangle)`
     right: 0;
     border-top: 54px solid transparent;
-    border-right: 54px solid ${ColorMap.yellow};
+    border-right: 54px solid ${props => ColorMap[props.color]};
     border-bottom: 54px solid transparent;
 `;
 export const TriangleTop = styled(Triangle)`
     bottom: 0;
     border-left: 54px solid transparent;
     border-right: 54px solid transparent;
-    border-bottom: 54px solid ${ColorMap.blue};
+    border-bottom: 54px solid ${props => ColorMap[props.color]};
 `;
 export const TriangleBottom = styled(Triangle)`
     top: 0;
     border-left: 54px solid transparent;
     border-right: 54px solid transparent;
-    border-top: 54px solid ${ColorMap.green};
+    border-top: 54px solid ${props => ColorMap[props.color]};
 `;
 
 export const DiceContainer = styled.div`

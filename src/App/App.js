@@ -1,22 +1,30 @@
 import React from 'react';
-import styled from 'styled-components';
+import { Switch, Route, Redirect } from 'react-router-dom';
+
+import { GameProvider } from '../context/GameContext';
 
 import Game from './Game/Game';
-
-// eslint-disable-next-line no-undef
-const AppContainer = styled.div`
-    display:flex;
-    flex-direction: column;
-    border: none;
-    width: 542px;
-    margin: 1em auto 0;
-`;
+import { FlexContainer } from '../components/styled';
 
 function App() {
     return (
-        <AppContainer>
-            <Game/>
-        </AppContainer>
+        <FlexContainer fluid>
+            <Switch>
+                <Route path="/" exact>
+                    <Redirect to="/game/5e909789330000dcb727d8ef"/>
+                </Route>
+
+                <Route path={`/game/:id`}>
+                    <GameProvider>
+                        <Game/>
+                    </GameProvider>
+                </Route>
+
+                <Route path="*">
+                    <h1>The page you are looking for doesn't exist!</h1>
+                </Route>
+            </Switch>
+        </FlexContainer>
     );
 }
 

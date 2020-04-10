@@ -1,15 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-import 'konva';
-import './index.css';
+import { BrowserRouter } from 'react-router-dom';
+import { configure } from 'axios-hooks'
+import Axios from 'axios';
 
 import App from './App/App';
 import * as serviceWorker from './serviceWorker';
 
+import 'konva';
+import './index.css';
+
+configure({
+    axios: Axios.create({
+        baseURL: 'http://www.mocky.io/v2/',
+    })
+});
+
 ReactDOM.render(
     <React.StrictMode>
-        <App/>
+        <BrowserRouter>
+            <App/>
+        </BrowserRouter>
     </React.StrictMode>,
     document.getElementById('root')
 );

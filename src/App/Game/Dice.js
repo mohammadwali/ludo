@@ -4,8 +4,7 @@ import ReactDice from 'react-dice-complete';
 import { ColorMap } from '../../constant';
 
 const Dice = (props) => {
-    const { player } = props;
-    const dotColor = ColorMap[player.color];
+    const { player, color } = props;
 
     return (
         <ReactDice
@@ -14,7 +13,7 @@ const Dice = (props) => {
             numDice={1}
             faceColor={'#fff'}
             outlineColor={'#ddd'}
-            dotColor={dotColor}
+            dotColor={color}
             rollDone={(...args) => console.log('done', args)}
             ref={dice => console.log(dice)}
         />

@@ -1,82 +1,60 @@
-import React, { useCallback } from 'react';
-import { get } from 'lodash/object';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 
-import { Square, Token } from '../../../components/styled';
-import { Ranges } from '../../../constant';
-import { useBoardState } from '../../../hooks/useBoardState';
-import { findTokensByBlockPosition } from '../../../utils/findTokensByBlockPosition';
+import { FlexContainer, Square } from '../../../components/styled';
+import { BoardConfig, BoardMap, TokenColorPos } from '../../../constant';
+import { GameContext } from '../../../context/GameContext';
+import { useBlockTokenRenderer } from '../../../hooks/useBlockTokenRenderer';
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: ${props => props.direction};
-`;
-
-const Row = styled.div`
-  display: flex;
-  flex-direction: ${props => props.direction};
-`;
-
-const { SafeSpots, SafeColorSpots } = Ranges;
-
-const HomeDirection = {
-    TOP: 'top',
-    LEFT: 'left',
-    RIGHT: 'right',
-    BOTTOM: 'bottom',
-};
-
-const getFlexDirectionByHomeDirection = (direction) => {
-    return (direction === HomeDirection.TOP || direction === HomeDirection.BOTTOM) ?
-        { containerDirection: 'column', rowDirection: 'row' } :
-        { containerDirection: 'row', rowDirection: 'column' };
+const getFlexDirection = (pos) => {
+    return (pos === TokenColorPos.TOP_RIGHT || pos === TokenColorPos.BOTTOM_LEFT) ?
+        { containerDirection: 'row', rowDirection: 'column' } :
+        { containerDirection: 'column', rowDirection: 'row' };
 };
 
 const SquareBlock = (props) => {
-    const [{ tokenPosition }] = useBoardState();
-
-    const { color, pos } = props;
-    const tokens = findTokensByBlockPosition(pos, tokenPosition);
-
-    const renderTokens = useCallback(() => tokens.map(({ tokenColor, tokenIndex }) => {
-        if (get(tokenPosition, [tokenColor, tokenIndex]) === pos) {
-            return <Token key={tokenIndex + tokenColor} color={tokenColor} count={tokens.length}/>;
-        }
-        return null;
-    }), [pos, tokenPosition, tokens]);
+    const { color, currentTokenPos, applyColor, applyStar } = props;
+    const renderTokens = useBlockTokenRenderer(currentTokenPos);
 
     return (
         <Square
-            key={pos}
-            color={SafeColorSpots[color].includes(pos) ? color : 'none'}
-            hasStar={SafeSpots.includes(pos)}>
+            key={currentTokenPos}
+            color={applyColor ? color : 'none'}
+            hasStar={applyStar}>
             {renderTokens()}
+            {/*{currentTokenPos}*/}
         </Square>
     )
 };
 
+const { map: { safeSpots }, map } = BoardConfig;
+
 const SquaresBlock = (props) => {
-    const { homeDirection, ranges } = props;
-    const { containerDirection, rowDirection } = getFlexDirectionByHomeDirection(homeDirection);
+    const { pos } = props;
+    const { containerDirection, rowDirection } = getFlexDirection(pos);
+    const { state: { colorsPos } } = useContext(GameContext);
+    const { [pos]: { block: ranges, finishRange, homeBlock } } = map;
 
     return (
-        <Container direction={containerDirection}>
+        <FlexContainer direction={containerDirection}>
             {ranges.map((row, index) => (
-                <Row key={index} direction={rowDirection}>
-                    {row.map((pos) => <SquareBlock key={pos} {...props} pos={pos}/>)}
-                </Row>
+                <FlexContainer key={index} direction={rowDirection}>
+                    {row.map((tokenPos) => (
+                        <SquareBlock
+                            key={tokenPos}
+                            color={colorsPos[pos]}
+                            applyStar={safeSpots.includes(tokenPos)}
+                            applyColor={finishRange.includes(tokenPos) || homeBlock === tokenPos}
+                            currentTokenPos={tokenPos}/>
+                    ))}
+                </FlexContainer>
             ))}
-        </Container>
+        </FlexContainer>
     );
 };
 
 SquaresBlock.propTypes = {
-    color: PropTypes.string.isRequired,
-    homeDirection: PropTypes.string,
-    ranges: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired
+    pos: PropTypes.string
 };
-
-SquaresBlock.HomeDirection = HomeDirection;
 
 export default SquaresBlock;

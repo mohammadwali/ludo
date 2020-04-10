@@ -30,41 +30,117 @@ export const ColorMap = {
     yellow: '#ffe578'
 };
 
-const tokenPositionRanges = arrayRange([0, 16], 4);
-export const Ranges = {
-    Tokens: {
-        [ColorName.RED]: tokenPositionRanges[0],
-        [ColorName.BLUE]: tokenPositionRanges[1],
-        [ColorName.GREEN]: tokenPositionRanges[2],
-        [ColorName.YELLOW]: tokenPositionRanges[3],
+export const TokenColorPos = {
+    TOP_LEFT: 'topLeft',
+    TOP_RIGHT: 'topRight',
+    BOTTOM_LEFT: 'bottomLeft',
+    BOTTOM_RIGHT: 'bottomRight',
+};
+
+const mapTokens = arrayRange([0, 16], 4);
+
+export const BoardConfig = {
+    map: {
+        bottomLeft: {
+            homeBlock: 20,
+            finishBlock: 89,
+            tokens: mapTokens[0],
+            lastPathBlock: 27,
+            finishRange: arrayRange([22, 27]).reverse(),
+            block: arrayRange([16, 34], 6),
+        },
+        topLeft: {
+            homeBlock: 35,
+            finishBlock: 90,
+            tokens: mapTokens[1],
+            lastPathBlock: 40,
+            finishRange: arrayRange([41, 46]),
+            block: arrayRange([34, 52], 6),
+        },
+        topRight: {
+            homeBlock: 65,
+            finishBlock: 91,
+            tokens: mapTokens[2],
+            lastPathBlock: 58,
+            finishRange: arrayRange([59, 64]),
+            block: arrayRange([52, 70], 6),
+        },
+        bottomRight: {
+            homeBlock: 86,
+            finishBlock: 92,
+            tokens: mapTokens[3],
+            lastPathBlock: 81,
+            finishRange: arrayRange([76, 81]).reverse(),
+            block: arrayRange([70, 88], 6),
+        },
+        safeSpots: [48, 54, 73, 31],
     },
-    Blocks: {
-        [ColorName.RED]: [
-            [69, 17, 18, 19, 20, 21],
-            [68, 70, 71, 72, 73, 74],
-            [67, 66, 65, 64, 63, 62],
-        ],
-        [ColorName.GREEN]: [
-            [28, 26, 25, 24, 23, 22],
-            [29, 75, 76, 77, 78, 79],
-            [30, 31, 32, 33, 34, 35],
-        ],
-        [ColorName.YELLOW]: [
-            [36, 37, 38, 39, 40, 41],
-            [89, 88, 87, 86, 85, 42],
-            [48, 47, 46, 45, 44, 43],
-        ],
-        [ColorName.BLUE]: [
-            [61, 60, 59, 58, 57, 56],
-            [84, 83, 82, 81, 80, 55],
-            [49, 50, 51, 52, 53, 54]
-        ],
+
+    path: [
+        ...arrayRange([16, 21]).reverse(),
+        ...arrayRange([46, 52]).reverse(),
+        40,
+        ...arrayRange([34, 40]),
+        ...arrayRange([52, 58]).reverse(),
+        58,
+        ...arrayRange([64, 70]),
+        ...arrayRange([70, 76]),
+        81,
+        ...arrayRange([82, 88]).reverse(),
+        ...arrayRange([21, 29]).reverse(),
+    ]
+};
+
+export const DummyGameConfig = {
+    players: [
+        {
+            'id': 1,
+            'name': 'Vanessa Hanson',
+            'color': 'red',
+            'avatar': {
+                'url': 'https://randomuser.me/api/portraits/women/9.jpg'
+            },
+            'isMicrophoneEnabled': false
+        },
+        {
+            'id': 3,
+            'name': 'Irene Wilson',
+            'color': 'green',
+            'avatar': {
+                'url': 'https://randomuser.me/api/portraits/women/3.jpg'
+            },
+            'isMicrophoneEnabled': false
+        },
+        {
+            'id': 2,
+            'name': 'Antonio Pearson',
+            'color': 'blue',
+            'avatar': {
+                'url': 'https://randomuser.me/api/portraits/men/37.jpg'
+            },
+            'isMicrophoneEnabled': true
+        },
+        {
+            'id': 4,
+            'name': 'Liam Harper',
+            'color': 'yellow',
+            'avatar': {
+                'url': 'https://randomuser.me/api/portraits/men/93.jpg'
+            },
+            'isMicrophoneEnabled': false
+        }
+    ],
+
+    tokensPos: {
+        bottomLeft: [0, 1, 2, 3],
+        topLeft: [4, 5, 6, 7],
+        topRight: [8, 9, 10, 11],
+        bottomRight: [12, 13, 14, 15],
     },
-    SafeSpots: [65, 52, 25, 39],
-    SafeColorSpots: {
-        [ColorName.RED]: [17, 70, 71, 72, 73, 74],
-        [ColorName.BLUE]: [57, 84, 83, 82, 81, 80],
-        [ColorName.GREEN]: [31, 75, 76, 77, 78, 79],
-        [ColorName.YELLOW]: [44, 89, 88, 87, 86, 85],
+    colorsPos: {
+        topLeft: ColorName.GREEN,
+        topRight: ColorName.BLUE,
+        bottomLeft: ColorName.RED,
+        bottomRight: ColorName.YELLOW,
     },
 };
