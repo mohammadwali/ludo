@@ -20,7 +20,7 @@ const SquareBlock = (props) => {
             hasStar={applyStar}
             key={currentTokenPos}
             color={applyColor ? color : 'none'}>
-            {currentTokenPos}
+            {/*{currentTokenPos}*/}
             <BlockTokens currentTokenPos={currentTokenPos}/>
         </Square>
     )
