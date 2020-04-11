@@ -15,13 +15,29 @@ ${
 `;
 
 export const Box = styled(FlexContainer)`
-     box-shadow: 0 0 0 1px #dbdbdb;
-     margin: 0 0 1px 1px;     
+    
 `;
 
 export const CenteredBox = styled(Box)`
     justify-content: center;
     align-items: center;
+`;
+
+export const SquareWrapper = styled(FlexContainer)`
+    border-style: solid;
+    border-width: 1px 0 0 1px;
+    border-color: rgba(0, 0, 0, .3);
+`;
+
+export const Square = styled(CenteredBox)`
+    width: 36px;
+    height: 36px;
+    border-width: 0 1px 1px  0;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, .3);
+    background-size: 100%;
+    background-image: ${props => props.hasStar ? 'url(\'/images/star.svg\')' : 'none'};
+    background-color: ${props => props.hasStar ? '#f5f5f5' : (ColorMap[props.color] || 'none')}
 `;
 
 export const Card = styled.div`
@@ -30,20 +46,10 @@ export const Card = styled.div`
     box-shadow: 0 2px 2px -1px rgba(0,0,0,.055);
 `;
 
-export const Square = styled(CenteredBox)`
-    width: 35px;
-    height: 35px;
-    margin: 0 0 1px 1px;
-    box-shadow: 0 0 0 1px #dbdbdb;
-    background-size: 100%;
-    background-image: ${props => props.hasStar ? 'url(\'/images/star.svg\') ' : 'none'};
-    background-color: ${props => props.hasStar ? '#f5f5f5' : (ColorMap[props.color] || 'none')}
-`;
-
 export const Circle = styled.div`
     background: ${props => ColorMap[props.color]};
     border-radius: 100%;
-    padding: 1em
+    padding: 2em
 `;
 
 export const TokenRow = styled.div`
@@ -58,7 +64,7 @@ export const TokenBlock = styled.div`
     margin: 1em;
 `;
 
-export const Token = styled.div`
+export const TokenItem = styled.div`
     width: ${props => (props.count ? 2 / props.count : 2)}em;
     height: ${props => (props.count ? 2 / props.count : 2)}em;
     border-radius: 100%;
@@ -66,9 +72,10 @@ export const Token = styled.div`
     border: 4px inset rgba(0, 0, 0, 0.2);
     flex-shrink: 0;
     z-index:1;
+    cursor:pointer;
 `;
 
-export const TokenPlaceHolder = styled(Token)`
+export const TokenItemPlaceHolder = styled(TokenItem)`
     border-color: transparent;
 `;
 
@@ -80,27 +87,27 @@ export const Triangle = styled.div`
 
 export const TriangleRight = styled(Triangle)`
     top: 0;
-    border-top: 54px solid transparent;
-    border-left: 54px solid ${props => ColorMap[props.color]};
-    border-bottom: 54px solid transparent;
+    border-top: 55px solid transparent;
+    border-left: 55px solid ${props => ColorMap[props.color]};
+    border-bottom: 55px solid transparent;
 `;
 export const TriangleLeft = styled(Triangle)`
     right: 0;
-    border-top: 54px solid transparent;
-    border-right: 54px solid ${props => ColorMap[props.color]};
-    border-bottom: 54px solid transparent;
+    border-top: 55px solid transparent;
+    border-right: 55px solid ${props => ColorMap[props.color]};
+    border-bottom: 55px solid transparent;
 `;
 export const TriangleTop = styled(Triangle)`
     bottom: 0;
-    border-left: 54px solid transparent;
-    border-right: 54px solid transparent;
-    border-bottom: 54px solid ${props => ColorMap[props.color]};
+    border-left: 55px solid transparent;
+    border-right: 55px solid transparent;
+    border-bottom: 55px solid ${props => ColorMap[props.color]};
 `;
 export const TriangleBottom = styled(Triangle)`
     top: 0;
-    border-left: 54px solid transparent;
-    border-right: 54px solid transparent;
-    border-top: 54px solid ${props => ColorMap[props.color]};
+    border-left: 55px solid transparent;
+    border-right: 55px solid transparent;
+    border-top: 55px solid ${props => ColorMap[props.color]};
 `;
 
 export const DiceContainer = styled.div`

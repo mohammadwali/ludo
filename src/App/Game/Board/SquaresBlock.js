@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 
-import { FlexContainer, Square } from '../../../components/styled';
-import { BoardConfig, BoardMap, TokenColorPos } from '../../../constant';
+import { FlexContainer, Square, SquareWrapper } from '../../../components/styled';
+import { BoardConfig, TokenColorPos } from '../../../constant';
 import { GameContext } from '../../../context/GameContext';
-import { useBlockTokenRenderer } from '../../../hooks/useBlockTokenRenderer';
+import { BlockTokens } from './BlockTokens';
 
 const getFlexDirection = (pos) => {
     return (pos === TokenColorPos.TOP_RIGHT || pos === TokenColorPos.BOTTOM_LEFT) ?
@@ -14,15 +14,14 @@ const getFlexDirection = (pos) => {
 
 const SquareBlock = (props) => {
     const { color, currentTokenPos, applyColor, applyStar } = props;
-    const renderTokens = useBlockTokenRenderer(currentTokenPos);
 
     return (
         <Square
+            hasStar={applyStar}
             key={currentTokenPos}
-            color={applyColor ? color : 'none'}
-            hasStar={applyStar}>
-            {renderTokens()}
-            {/*{currentTokenPos}*/}
+            color={applyColor ? color : 'none'}>
+            {currentTokenPos}
+            <BlockTokens currentTokenPos={currentTokenPos}/>
         </Square>
     )
 };
@@ -36,7 +35,7 @@ const SquaresBlock = (props) => {
     const { [pos]: { block: ranges, finishRange, homeBlock } } = map;
 
     return (
-        <FlexContainer direction={containerDirection}>
+        <SquareWrapper direction={containerDirection}>
             {ranges.map((row, index) => (
                 <FlexContainer key={index} direction={rowDirection}>
                     {row.map((tokenPos) => (
@@ -49,7 +48,7 @@ const SquaresBlock = (props) => {
                     ))}
                 </FlexContainer>
             ))}
-        </FlexContainer>
+        </SquareWrapper>
     );
 };
 

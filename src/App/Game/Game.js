@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 
-import useAxios from 'axios-hooks';
+// import useAxios from 'axios-hooks';
 import { withRouter } from 'react-router-dom';
 
 import styled from 'styled-components';
@@ -23,8 +23,8 @@ const GameContainer = styled(FlexContainer)`
 `;
 
 const Game = (props) => {
-    const { params: { id } } = props.match;
-    const { state: { ready }, setGame } = useContext(GameContext);
+    // const { params: { id } } = props.match;
+    const { state: { ready, die, activePlayer }, setGame } = useContext(GameContext);
 
     // const [{ data }] = useAxios(
     //     id
@@ -40,8 +40,15 @@ const Game = (props) => {
 
 
     useEffect(() => {
+        if (die) {
+            console.log(activePlayer, die);
+        }
+    }, [activePlayer, die]);
+
+
+    useEffect(() => {
         setGame(DummyGameConfig);
-    }, []);
+    }, [setGame]);
 
 
     return ready ? (

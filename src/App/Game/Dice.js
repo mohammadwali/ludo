@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useCallback, useContext } from 'react';
 import PropTypes from 'prop-types';
 import ReactDice from 'react-dice-complete';
-import { ColorMap } from '../../constant';
+import { GameContext } from '../../context/GameContext';
 
 const Dice = (props) => {
-    const { player, color } = props;
+    const { color, pos } = props;
+    const { setDie, setActiveBlock } = useContext(GameContext);
+    const handleRollDone = (die) => {
+        setDie({ die });
+        setActiveBlock({ block: pos })
+    };
 
     return (
         <ReactDice
@@ -14,14 +19,14 @@ const Dice = (props) => {
             faceColor={'#fff'}
             outlineColor={'#ddd'}
             dotColor={color}
-            rollDone={(...args) => console.log('done', args)}
-            ref={dice => console.log(dice)}
+            rollDone={handleRollDone}
         />
     );
 };
 
 Dice.propTypes = {
-    player: PropTypes.object.isRequired
+    pos: PropTypes.string.isRequired,
+    color: PropTypes.string.isRequired
 };
 
 export default Dice;

@@ -10,27 +10,24 @@ import {
 } from '../../../components/styled';
 import { TokenColorPos } from '../../../constant';
 import { GameContext } from '../../../context/GameContext';
-import { useBlockTokenRenderer } from '../../../hooks/useBlockTokenRenderer';
 
 const Container = styled(Box)`
     position: relative;
-    width: 108px;
-    height: 108px;
+    height: 109px;
 `;
 
 const Block = (props) => {
     const { color, component: Component } = props;
-    const renderTokens = useBlockTokenRenderer(0);
+
     return (
         <Component color={color}>
-            {renderTokens()}
+
         </Component>
     )
 };
 
 const FinishBlocks = (props) => {
-    const color = 'red';
-    const { state: { tokensPos, colorsPos } } = useContext(GameContext);
+    const { state: { colorsPos } } = useContext(GameContext);
 
     return (
         <Container>

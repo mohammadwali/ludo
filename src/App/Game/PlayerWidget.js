@@ -78,12 +78,12 @@ const Placement = {
 };
 
 const DiceBlock = (props) => {
-    const { activePlayer, player, color } = props;
+    const { activePlayer, player, pos, color } = props;
 
     return (
         <DiceContainer>
             {activePlayer.id === player.id && (
-                <Dice player={player}
+                <Dice pos={pos}
                       color={color}/>
             )}
         </DiceContainer>
@@ -142,7 +142,7 @@ const PlayerWidget = (props) => {
 PlayerWidget.Placement = Placement;
 
 PlayerWidget.propTypes = {
-    color: PropTypes.string,
+    pos: PropTypes.string,
     player: PropTypes.object,
     activePlayer: PropTypes.object,
     placement: PropTypes.string,

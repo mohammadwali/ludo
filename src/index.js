@@ -8,7 +8,7 @@ import App from './App/App';
 import * as serviceWorker from './serviceWorker';
 
 import 'konva';
-import './index.css';
+import './assets/styles/index.css';
 
 configure({
     axios: Axios.create({

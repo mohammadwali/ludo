@@ -37,14 +37,14 @@ export const TokenColorPos = {
     BOTTOM_RIGHT: 'bottomRight',
 };
 
-const mapTokens = arrayRange([0, 16], 4);
+const initialTokens = arrayRange([0, 16], 4);
 
 export const BoardConfig = {
     map: {
         bottomLeft: {
             homeBlock: 20,
             finishBlock: 89,
-            tokens: mapTokens[0],
+            tokens: initialTokens[0],
             lastPathBlock: 27,
             finishRange: arrayRange([22, 27]).reverse(),
             block: arrayRange([16, 34], 6),
@@ -52,7 +52,7 @@ export const BoardConfig = {
         topLeft: {
             homeBlock: 35,
             finishBlock: 90,
-            tokens: mapTokens[1],
+            tokens: initialTokens[1],
             lastPathBlock: 40,
             finishRange: arrayRange([41, 46]),
             block: arrayRange([34, 52], 6),
@@ -60,7 +60,7 @@ export const BoardConfig = {
         topRight: {
             homeBlock: 65,
             finishBlock: 91,
-            tokens: mapTokens[2],
+            tokens: initialTokens[2],
             lastPathBlock: 58,
             finishRange: arrayRange([59, 64]),
             block: arrayRange([52, 70], 6),
@@ -68,7 +68,7 @@ export const BoardConfig = {
         bottomRight: {
             homeBlock: 86,
             finishBlock: 92,
-            tokens: mapTokens[3],
+            tokens: initialTokens[3],
             lastPathBlock: 81,
             finishRange: arrayRange([76, 81]).reverse(),
             block: arrayRange([70, 88], 6),
@@ -87,7 +87,9 @@ export const BoardConfig = {
         ...arrayRange([70, 76]),
         81,
         ...arrayRange([82, 88]).reverse(),
-        ...arrayRange([21, 29]).reverse(),
+        ...arrayRange([28, 34]),
+        27,
+        21
     ]
 };
 
@@ -103,6 +105,15 @@ export const DummyGameConfig = {
             'isMicrophoneEnabled': false
         },
         {
+            'id': 2,
+            'name': 'Liam Harper',
+            'color': 'blue',
+            'avatar': {
+                'url': 'https://randomuser.me/api/portraits/men/37.jpg'
+            },
+            'isMicrophoneEnabled': true
+        },
+        {
             'id': 3,
             'name': 'Irene Wilson',
             'color': 'green',
@@ -112,17 +123,8 @@ export const DummyGameConfig = {
             'isMicrophoneEnabled': false
         },
         {
-            'id': 2,
-            'name': 'Antonio Pearson',
-            'color': 'blue',
-            'avatar': {
-                'url': 'https://randomuser.me/api/portraits/men/37.jpg'
-            },
-            'isMicrophoneEnabled': true
-        },
-        {
             'id': 4,
-            'name': 'Liam Harper',
+            'name': 'Antonio Pearson',
             'color': 'yellow',
             'avatar': {
                 'url': 'https://randomuser.me/api/portraits/men/93.jpg'

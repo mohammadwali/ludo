@@ -12,6 +12,7 @@ import { FlexContainer } from '../../../components/styled';
 const BoardContainer = styled(FlexContainer)`
     border-collapse: collapse;
     background: #fff;
+    border: 4px solid #6665af;
 `;
 
 const Board = () => {

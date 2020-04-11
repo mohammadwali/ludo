@@ -10,7 +10,6 @@ import Board from './Board/Board';
 import PlayerWidget from './PlayerWidget';
 
 const GameWrapper = styled(FlexContainer)`
-    width: 542px;  
     margin: 1em auto 0;
 `;
 
@@ -52,40 +51,44 @@ const PrizeTitle = (props) => {
 };
 
 export const GameBody = (props) => {
-    const { state: { players, colorsPos }, state } = useContext(GameContext);
+    const { state: { players, colorsPos, activePlayer }, state } = useContext(GameContext);
 
-    console.log('rendered...', state);
+    // console.log('rendered...', state);
 
     return (
         <GameWrapper direction={'column'}>
             <PrizeTitle first={500} second={250}/>
             <Row margin={'0 0 .3em'}>
                 <PlayerWidget
-                    player={players[0]}
-                    activePlayer={{ id: 2 }}
+                    player={players[2]}
+                    activePlayer={activePlayer}
+                    pos={TokenColorPos.TOP_LEFT}
                     color={colorsPos[TokenColorPos.TOP_LEFT]}
                     placement={PlayerWidget.Placement.LEFT}
                 />
                 <PlayerWidget
+                    pos={TokenColorPos.TOP_RIGHT}
                     color={colorsPos[TokenColorPos.TOP_RIGHT]}
                     placement={PlayerWidget.Placement.RIGHT}
-                    player={players[1]}
-                    activePlayer={{ id: 2 }}
+                    player={players[3]}
+                    activePlayer={activePlayer}
                 />
             </Row>
             <Board/>
             <Row margin={'.3em 0 0'}>
                 <PlayerWidget
+                    pos={TokenColorPos.BOTTOM_LEFT}
                     color={colorsPos[TokenColorPos.BOTTOM_LEFT]}
                     placement={PlayerWidget.Placement.LEFT}
-                    player={players[2]}
-                    activePlayer={{ id: 2 }}
+                    player={players[0]}
+                    activePlayer={activePlayer}
                 />
                 <PlayerWidget
+                    pos={TokenColorPos.BOTTOM_RIGHT}
                     color={colorsPos[TokenColorPos.BOTTOM_RIGHT]}
                     placement={PlayerWidget.Placement.RIGHT}
-                    activePlayer={{ id: 2 }}
-                    player={players[3]}/>
+                    activePlayer={activePlayer}
+                    player={players[1]}/>
             </Row>
             <FloatingButton>
                 <MicrophoneIcon isEnabled={false} width={30}/>
