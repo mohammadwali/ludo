@@ -1,5 +1,20 @@
-import styled from 'styled-components';
+import Color from 'color';
+import styled, { keyframes } from 'styled-components';
 import { ColorMap } from '../constant';
+
+console.log(Color);
+
+export const createPulseAnimation = (color) => keyframes`
+    0% {
+      background-color:  ${color};
+    }
+    33.3333% {
+      background-color: ${Color(color).darken(0.5).hex()};
+    }
+    100% {
+      background-color:  ${color}
+    }
+`;
 
 export const FlexContainer = styled.div`
     display:flex;

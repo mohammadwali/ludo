@@ -50,7 +50,7 @@ const Game = (props) => {
             ...config,
             colorsPos,
             players: config.players,
-            activeBlock: DefaultDirection[0]
+            currentBlock: DefaultDirection[0]
         };
 
         setGame(game);

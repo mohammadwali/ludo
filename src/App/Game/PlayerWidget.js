@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import 'react-dice-complete/dist/react-dice-complete.css'
 import MicrophoneIcon from '../../components/MicrophoneIcon';
-import { Card, FlexContainer, DiceContainer } from '../../components/styled';
+import { Card, FlexContainer, DiceContainer, createPulseAnimation } from '../../components/styled';
 import { ColorMap, TokenColorPos } from '../../constant';
 
 import { InlineIcon } from '@iconify/react';
@@ -18,6 +18,10 @@ const Container = styled(Card)`
     width: 230px;
     min-height: 78px;
     background: ${props => ColorMap[props.color]};
+    animation-name: ${props => props.active ? createPulseAnimation(ColorMap[props.color]) : 'none'};
+    animation-duration: .9s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-out;
 `;
 
 const PlayerBlockContainer = styled(FlexContainer)`
@@ -82,10 +86,10 @@ const Placement = {
 
 const DiceBlock = (props) => {
     const { pos, color } = props;
-    const { state: { activeBlock } } = useContext(GameContext);
+    const { state: { currentBlock } } = useContext(GameContext);
     return (
         <DiceContainer>
-            {activeBlock === pos && (
+            {currentBlock === pos && (
                 <Dice pos={pos}
                       color={color}/>
             )}
@@ -131,13 +135,14 @@ const PlayerBlock = (props) => {
 
 const PlayerWidget = (props) => {
     const { pos, player } = props;
-    const { state: { colorsPos } } = useContext(GameContext);
+    const { state: { colorsPos, activeBlock } } = useContext(GameContext);
     const color = colorsPos[pos];
 
     return (
         <Container
             color={color}
-            direction={Placement[pos]}>
+            direction={Placement[pos]}
+            active={activeBlock === pos}>
             <PlayerBlock
                 player={player}/>
             <DiceBlock

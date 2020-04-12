@@ -9,7 +9,7 @@ import { useTokenStepper } from '../../../hooks/useTokenStepper';
 
 const Token = memo((props) => {
     const { tokenColorPos, index, withPlaceholder, blockPos, ...rest } = props;
-    const { state: { tokensPos, colorsPos, die, activeBlock } } = useContext(GameContext);
+    const { state: { tokensPos, colorsPos, die, currentBlock } } = useContext(GameContext);
 
     const currentTokenColor = get(colorsPos, [tokenColorPos]);
     const currentTokenPosition = get(tokensPos, [tokenColorPos, index], null);
@@ -19,7 +19,7 @@ const Token = memo((props) => {
         return (
             <TokenItem
                 {...rest}
-                onClick={() => tokenColorPos === activeBlock && stepper(die, index)}
+                onClick={() => tokenColorPos === currentBlock && stepper(die, index)}
                 color={currentTokenColor}/>
         );
     }

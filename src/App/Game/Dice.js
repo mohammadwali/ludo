@@ -52,11 +52,11 @@ const Dice = (props) => {
                 tokenIndexesInPath.length === 1 && die !== 6
             );
 
-            setDie({ die });
-            setActiveBlock({ block: tokenColorPos });
-
             if (shouldAutoStep) {
                 stepper(die, tokenIndexesInPath[0]);
+            } else {
+                setDie({ die });
+                setActiveBlock({ block: tokenColorPos });
             }
 
         } else {

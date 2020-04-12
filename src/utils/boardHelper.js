@@ -52,9 +52,9 @@ export const createColorPos = (currentUserColor) => {
  * Return's the next TokenColorPos following the DefaultDirection in constants
  * basically who is gonna grab dice next
  *  */
-export const getNextBlockPos = (activeBlock) => {
+export const getNextBlockPos = (currentBlock) => {
     const lastIndex = DefaultDirection.length - 1;
-    const currentIndex = DefaultDirection.indexOf(activeBlock);
+    const currentIndex = DefaultDirection.indexOf(currentBlock);
     const nextIndex = currentIndex === lastIndex ? 0 : currentIndex + 1;
     return DefaultDirection[nextIndex];
 };
