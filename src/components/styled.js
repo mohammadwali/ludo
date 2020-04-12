@@ -111,13 +111,13 @@ export const TriangleBottom = styled(Triangle)`
 `;
 
 export const DiceContainer = styled.div`
-    cursor: pointer;
-    flex: .35;
+    flex: .42;
     padding: .5em;
     background: rgba(0, 0, 0, .4);
     border-radius-right: 50%;
     
     & .die {
+        cursor: pointer;
         & span.dot{
             width: 12px !important;
             height: 12px !important;

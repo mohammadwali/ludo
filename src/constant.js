@@ -37,62 +37,6 @@ export const TokenColorPos = {
     BOTTOM_RIGHT: 'bottomRight',
 };
 
-const initialTokens = arrayRange([0, 16], 4);
-
-export const BoardConfig = {
-    map: {
-        bottomLeft: {
-            homeBlock: 20,
-            finishBlock: 89,
-            tokens: initialTokens[0],
-            lastPathBlock: 27,
-            finishRange: arrayRange([22, 27]).reverse(),
-            block: arrayRange([16, 34], 6),
-        },
-        topLeft: {
-            homeBlock: 35,
-            finishBlock: 90,
-            tokens: initialTokens[1],
-            lastPathBlock: 40,
-            finishRange: arrayRange([41, 46]),
-            block: arrayRange([34, 52], 6),
-        },
-        topRight: {
-            homeBlock: 65,
-            finishBlock: 91,
-            tokens: initialTokens[2],
-            lastPathBlock: 58,
-            finishRange: arrayRange([59, 64]),
-            block: arrayRange([52, 70], 6),
-        },
-        bottomRight: {
-            homeBlock: 86,
-            finishBlock: 92,
-            tokens: initialTokens[3],
-            lastPathBlock: 81,
-            finishRange: arrayRange([76, 81]).reverse(),
-            block: arrayRange([70, 88], 6),
-        },
-        safeSpots: [48, 54, 73, 31],
-    },
-
-    path: [
-        ...arrayRange([16, 21]).reverse(),
-        ...arrayRange([46, 52]).reverse(),
-        40,
-        ...arrayRange([34, 40]),
-        ...arrayRange([52, 58]).reverse(),
-        58,
-        ...arrayRange([64, 70]),
-        ...arrayRange([70, 76]),
-        81,
-        ...arrayRange([82, 88]).reverse(),
-        ...arrayRange([28, 34]),
-        27,
-        21
-    ]
-};
-
 export const DummyGameConfig = {
     players: [
         {

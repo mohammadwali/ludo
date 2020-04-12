@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 
 // import useAxios from 'axios-hooks';
 import { withRouter } from 'react-router-dom';
@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import { FlexContainer } from '../../components/styled';
 import { DummyGameConfig } from '../../constant';
 import { GameContext } from '../../context/GameContext';
+import { UiSounds } from '../../UiSounds';
 
 import { GameBody } from './GameBody';
 import { GameLoader } from './GameLoader';
@@ -24,7 +25,8 @@ const GameContainer = styled(FlexContainer)`
 
 const Game = (props) => {
     // const { params: { id } } = props.match;
-    const { state: { ready, die, activePlayer }, setGame } = useContext(GameContext);
+    const { state: { ready, die, activePlayer, lastDie }, setGame } = useContext(GameContext);
+    const lastPlayer = useRef(activePlayer);
 
     // const [{ data }] = useAxios(
     //     id
@@ -40,14 +42,8 @@ const Game = (props) => {
 
 
     useEffect(() => {
-        if (die) {
-            console.log(activePlayer, die);
-        }
-    }, [activePlayer, die]);
-
-
-    useEffect(() => {
         setGame(DummyGameConfig);
+        console.log('setting config....')
     }, [setGame]);
 
 

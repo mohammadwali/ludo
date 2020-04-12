@@ -1,14 +1,15 @@
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback, useContext, memo } from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash/object';
 
 import styled from 'styled-components';
 
 import { Circle, TokenRow, TokenBlock, CenteredBox } from '../../../components/styled';
-import { BoardConfig, ColorMap } from '../../../constant';
+import { BoardMap } from '../../../config/game/board';
+import { ColorMap } from '../../../constant';
 
 import { GameContext } from '../../../context/GameContext';
-import { Token } from './Token';
+import Token from './Token';
 
 const Container = styled(CenteredBox)`
     height: 217px;
@@ -26,27 +27,24 @@ const Container = styled(CenteredBox)`
     background-size: 6.39px 3.40px;
 `;
 
-const { map: boardMap } = BoardConfig;
+const HomeContainer = memo((props) => {
+    const { currentTokenColor, getTokenBlockPos, tokenColorPos } = props;
 
-const HomeBox = (props) => {
-    const { pos } = props;
-    const { state: { colorsPos } } = useContext(GameContext);
-    const currentTokenColor = get(colorsPos, [pos]);
-    const getTokenBlockPos = useCallback((index) => get(boardMap, [pos, 'tokens', index]), [boardMap]);
+    console.log('rendering home', tokenColorPos);
 
     return (
-        <Container {...props} color={currentTokenColor}>
+        <Container color={currentTokenColor}>
             <Circle color={currentTokenColor}>
                 <TokenRow>
                     <TokenBlock>
                         <Token index={0}
-                               pos={pos}
+                               tokenColorPos={tokenColorPos}
                                withPlaceholder
                                blockPos={getTokenBlockPos(0)}/>
                     </TokenBlock>
                     <TokenBlock>
                         <Token index={1}
-                               pos={pos}
+                               tokenColorPos={tokenColorPos}
                                withPlaceholder
                                blockPos={getTokenBlockPos(1)}/>
                     </TokenBlock>
@@ -54,24 +52,43 @@ const HomeBox = (props) => {
                 <TokenRow>
                     <TokenBlock>
                         <Token index={2}
-                               pos={pos}
+                               tokenColorPos={tokenColorPos}
                                withPlaceholder
                                blockPos={getTokenBlockPos(2)}/>
                     </TokenBlock>
                     <TokenBlock>
                         <Token index={3}
-                               pos={pos}
+                               tokenColorPos={tokenColorPos}
                                withPlaceholder
                                blockPos={getTokenBlockPos(3)}/>
                     </TokenBlock>
                 </TokenRow>
             </Circle>
         </Container>
+    )
+});
+
+const HomeBox = (props) => {
+    const { tokenColorPos } = props;
+    const { state: { colorsPos } } = useContext(GameContext);
+    const currentTokenColor = get(colorsPos, [tokenColorPos]);
+
+    const getTokenBlockPos = useCallback(
+        (index) => get(BoardMap, [tokenColorPos, 'tokens', index]),
+        [tokenColorPos]
+    );
+
+    return (
+        <HomeContainer
+            tokenColorPos={tokenColorPos}
+            currentTokenColor={currentTokenColor}
+            getTokenBlockPos={getTokenBlockPos}
+        />
     );
 };
 
 HomeBox.propTypes = {
-    pos: PropTypes.string.isRequired,
+    tokenColorPos: PropTypes.string.isRequired,
 };
 
 export default HomeBox;

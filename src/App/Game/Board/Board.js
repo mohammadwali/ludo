@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled from 'styled-components';
 
 import { TokenColorPos } from '../../../constant';
 
 import HomeBox from './HomeBox';
 import FinishBlocks from './FinishBlocks';
-import SquaresBlock from './SquaresBlock';
+import PathBlocks from './PathBlocks';
 
 import { FlexContainer } from '../../../components/styled';
 
@@ -15,28 +15,28 @@ const BoardContainer = styled(FlexContainer)`
     border: 4px solid #6665af;
 `;
 
-const Board = () => {
+const Board = memo(() => {
     return (
         <BoardContainer>
             <FlexContainer>
                 <div>
-                    <HomeBox pos={TokenColorPos.TOP_LEFT}/>
-                    <SquaresBlock pos={TokenColorPos.TOP_LEFT}/>
-                    <HomeBox pos={TokenColorPos.BOTTOM_LEFT}/>
+                    <HomeBox tokenColorPos={TokenColorPos.TOP_LEFT}/>
+                    <PathBlocks tokenColorPos={TokenColorPos.TOP_LEFT}/>
+                    <HomeBox tokenColorPos={TokenColorPos.BOTTOM_LEFT}/>
                 </div>
                 <div>
-                    <SquaresBlock pos={TokenColorPos.TOP_RIGHT}/>
+                    <PathBlocks tokenColorPos={TokenColorPos.TOP_RIGHT}/>
                     <FinishBlocks/>
-                    <SquaresBlock pos={TokenColorPos.BOTTOM_LEFT}/>
+                    <PathBlocks tokenColorPos={TokenColorPos.BOTTOM_LEFT}/>
                 </div>
                 <div>
-                    <HomeBox pos={TokenColorPos.TOP_RIGHT}/>
-                    <SquaresBlock pos={TokenColorPos.BOTTOM_RIGHT}/>
-                    <HomeBox pos={TokenColorPos.BOTTOM_RIGHT}/>
+                    <HomeBox tokenColorPos={TokenColorPos.TOP_RIGHT}/>
+                    <PathBlocks tokenColorPos={TokenColorPos.BOTTOM_RIGHT}/>
+                    <HomeBox tokenColorPos={TokenColorPos.BOTTOM_RIGHT}/>
                 </div>
             </FlexContainer>
         </BoardContainer>
     );
-};
+});
 
 export default Board;
