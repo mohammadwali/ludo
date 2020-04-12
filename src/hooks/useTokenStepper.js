@@ -9,7 +9,7 @@ import { getNextStepPath, getTokenIndexInPath, isSafeSpot, isTokenInPath } from 
 
 export const useTokenStepper = (tokenColorPos) => {
     let tokenMoveIntervalId = useRef(null);
-    const { state: { tokensPos }, moveToken, passToNextPlayer } = useContext(GameContext);
+    const { state: { tokensPos }, moveToken, switchToNextBlock } = useContext(GameContext);
 
     const stepper = useCallback((step, tokenIndex) => {
         if (tokenMoveIntervalId.current) {
@@ -48,7 +48,7 @@ export const useTokenStepper = (tokenColorPos) => {
             }
 
             setTimeout(() => {
-                passToNextPlayer();
+                switchToNextBlock();
                 UiSounds.playerSwitched.play();
             }, 500);
         };
@@ -56,7 +56,7 @@ export const useTokenStepper = (tokenColorPos) => {
         update();
         tokenMoveIntervalId.current = setInterval(update, 250);
 
-    }, [moveToken, passToNextPlayer, tokenColorPos, tokensPos]);
+    }, [moveToken, switchToNextBlock, tokenColorPos, tokensPos]);
 
     return { stepper }
 };

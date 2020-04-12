@@ -38,29 +38,35 @@ const Dice = (props) => {
     const { stepper } = useTokenStepper(tokenColorPos);
 
     const {
+        setDie,
+        setActiveBlock,
+        switchToNextBlock,
         state: { tokensPos },
-        setDie, setActiveBlock, passToNextPlayer
     } = useContext(GameContext);
 
     const handleRollDone = useCallback((die) => {
         const tokenIndexesInPath = getTokensIndexesInPath(tokenColorPos, tokensPos[tokenColorPos]);
 
         if (die === 6 || tokenIndexesInPath.length) {
+            const shouldAutoStep = (
+                tokenIndexesInPath.length === 1 && die !== 6
+            );
+
             setDie({ die });
             setActiveBlock({ block: tokenColorPos });
 
-            if (tokenIndexesInPath.length === 1) {
+            if (shouldAutoStep) {
                 stepper(die, tokenIndexesInPath[0]);
             }
 
         } else {
             //adding delay to finish dice animation
             setTimeout(() => {
-                passToNextPlayer();
+                switchToNextBlock();
                 UiSounds.playerSwitched.play();
             }, 500);
         }
-    }, [passToNextPlayer, setActiveBlock, setDie, stepper, tokenColorPos, tokensPos]);
+    }, [switchToNextBlock, setActiveBlock, setDie, stepper, tokenColorPos, tokensPos]);
 
     return (
         <DiceContainer

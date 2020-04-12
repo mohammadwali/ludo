@@ -5,9 +5,10 @@ import { withRouter } from 'react-router-dom';
 
 import styled from 'styled-components';
 import { FlexContainer } from '../../components/styled';
-import { DummyGameConfig } from '../../constant';
+import { ColorName, DefaultDirection, DummyGameConfig } from '../../constant';
 import { GameContext } from '../../context/GameContext';
 import { UiSounds } from '../../UiSounds';
+import { createColorPos } from '../../utils/boardHelper';
 
 import { GameBody } from './GameBody';
 import { GameLoader } from './GameLoader';
@@ -42,8 +43,19 @@ const Game = (props) => {
 
 
     useEffect(() => {
-        setGame(DummyGameConfig);
-        console.log('setting config....')
+        const config = DummyGameConfig;
+        const currentUser = config.players[2];
+        const colorsPos = createColorPos(currentUser.colorName);
+        const game = {
+            ...config,
+            colorsPos,
+            players: config.players,
+            activeBlock: DefaultDirection[0]
+        };
+
+        setGame(game);
+
+        console.log('setting config....', game)
     }, [setGame]);
 
 

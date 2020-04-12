@@ -37,11 +37,11 @@ export const Square = styled(CenteredBox)`
     border-color: rgba(0, 0, 0, .3);
     background-size: 100%;
     background-image: ${props => props.hasStar ? 'url(\'/images/star.svg\')' : 'none'};
-    background-color: ${props => props.hasStar ? '#f5f5f5' : (ColorMap[props.color] || 'none')}
+    background-color: ${props => props.hasStar ? '#f5f5f5' : (ColorMap[props.color] || 'none')};
+    position: relative;
 `;
 
-export const Card = styled.div`
-    display: flex;
+export const Card = styled(FlexContainer)`
     border-radius: 4px;
     box-shadow: 0 2px 2px -1px rgba(0,0,0,.055);
 `;

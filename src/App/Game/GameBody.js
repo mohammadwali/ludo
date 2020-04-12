@@ -52,7 +52,7 @@ const PrizeTitle = (props) => {
 };
 
 export const GameBody = (props) => {
-    const { state: { players, colorsPos, activePlayer } } = useContext(GameContext);
+    const { state: { players } } = useContext(GameContext);
 
     return (
         <GameWrapper direction={'column'}>
@@ -60,38 +60,28 @@ export const GameBody = (props) => {
             <Row margin={'0 0 .3em'}>
                 <PlayerWidget
                     player={players[2]}
-                    activePlayer={activePlayer}
                     pos={TokenColorPos.TOP_LEFT}
-                    color={colorsPos[TokenColorPos.TOP_LEFT]}
-                    placement={PlayerWidget.Placement.LEFT}
                 />
                 <PlayerWidget
                     pos={TokenColorPos.TOP_RIGHT}
-                    color={colorsPos[TokenColorPos.TOP_RIGHT]}
-                    placement={PlayerWidget.Placement.RIGHT}
                     player={players[3]}
-                    activePlayer={activePlayer}
                 />
             </Row>
             <Board/>
             <Row margin={'.3em 0 0'}>
                 <PlayerWidget
                     pos={TokenColorPos.BOTTOM_LEFT}
-                    color={colorsPos[TokenColorPos.BOTTOM_LEFT]}
-                    placement={PlayerWidget.Placement.LEFT}
                     player={players[0]}
-                    activePlayer={activePlayer}
                 />
                 <PlayerWidget
                     pos={TokenColorPos.BOTTOM_RIGHT}
-                    color={colorsPos[TokenColorPos.BOTTOM_RIGHT]}
-                    placement={PlayerWidget.Placement.RIGHT}
-                    activePlayer={activePlayer}
                     player={players[1]}/>
             </Row>
             <CopyrightNotice/>
             <FloatingButton>
-                <MicrophoneIcon isEnabled={false} width={30}/>
+                <MicrophoneIcon
+                    width={30}
+                    isEnabled={false}/>
             </FloatingButton>
         </GameWrapper>
     );

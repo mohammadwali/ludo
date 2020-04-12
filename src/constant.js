@@ -37,12 +37,19 @@ export const TokenColorPos = {
     BOTTOM_RIGHT: 'bottomRight',
 };
 
+export const DefaultDirection = [
+    TokenColorPos.BOTTOM_LEFT,
+    TokenColorPos.TOP_LEFT,
+    TokenColorPos.TOP_RIGHT,
+    TokenColorPos.BOTTOM_RIGHT,
+];
+
 export const DummyGameConfig = {
     players: [
         {
             'id': 1,
             'name': 'Vanessa Hanson',
-            'color': 'red',
+            'colorName': 'red',
             'avatar': {
                 'url': 'https://randomuser.me/api/portraits/women/9.jpg'
             },
@@ -51,7 +58,7 @@ export const DummyGameConfig = {
         {
             'id': 2,
             'name': 'Liam Harper',
-            'color': 'blue',
+            'colorName': 'blue',
             'avatar': {
                 'url': 'https://randomuser.me/api/portraits/men/37.jpg'
             },
@@ -60,7 +67,7 @@ export const DummyGameConfig = {
         {
             'id': 3,
             'name': 'Irene Wilson',
-            'color': 'green',
+            'colorName': 'green',
             'avatar': {
                 'url': 'https://randomuser.me/api/portraits/women/3.jpg'
             },
@@ -69,7 +76,7 @@ export const DummyGameConfig = {
         {
             'id': 4,
             'name': 'Antonio Pearson',
-            'color': 'yellow',
+            'colorName': 'yellow',
             'avatar': {
                 'url': 'https://randomuser.me/api/portraits/men/93.jpg'
             },
@@ -82,11 +89,5 @@ export const DummyGameConfig = {
         topLeft: [4, 5, 6, 7],
         topRight: [8, 9, 10, 11],
         bottomRight: [12, 13, 14, 15],
-    },
-    colorsPos: {
-        topLeft: ColorName.GREEN,
-        topRight: ColorName.BLUE,
-        bottomLeft: ColorName.RED,
-        bottomRight: ColorName.YELLOW,
     },
 };

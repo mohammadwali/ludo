@@ -1,22 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import 'react-dice-complete/dist/react-dice-complete.css'
 import MicrophoneIcon from '../../components/MicrophoneIcon';
 import { Card, FlexContainer, DiceContainer } from '../../components/styled';
-import { ColorMap } from '../../constant';
+import { ColorMap, TokenColorPos } from '../../constant';
 
 import { InlineIcon } from '@iconify/react';
 import bxAward from '@iconify/icons-bx/bx-award';
 import IconCoins from '@iconify/icons-vaadin/coin-piles';
+import { GameContext } from '../../context/GameContext';
 
 import Dice from './Dice';
 
 const Container = styled(Card)`
     width: 230px;
     min-height: 78px;
-    flex-direction: ${props => props.placement};
     background: ${props => ColorMap[props.color]};
 `;
 
@@ -73,16 +73,19 @@ const PlayerMicrophoneIcon = styled(FlexContainer)`
 `;
 
 const Placement = {
-    LEFT: 'row',
-    RIGHT: 'row-reverse'
+    [TokenColorPos.TOP_LEFT]: 'row',
+    [TokenColorPos.BOTTOM_LEFT]: 'row',
+
+    [TokenColorPos.TOP_RIGHT]: 'row-reverse',
+    [TokenColorPos.BOTTOM_RIGHT]: 'row-reverse',
 };
 
 const DiceBlock = (props) => {
-    const { activePlayer, player, pos, color } = props;
-
+    const { pos, color } = props;
+    const { state: { activeBlock } } = useContext(GameContext);
     return (
         <DiceContainer>
-            {activePlayer.id === player.id && (
+            {activeBlock === pos && (
                 <Dice pos={pos}
                       color={color}/>
             )}
@@ -92,7 +95,6 @@ const DiceBlock = (props) => {
 
 const PlayerBlock = (props) => {
     const { player } = props;
-
     return (
         <PlayerBlockContainer>
             <Row>
@@ -128,24 +130,27 @@ const PlayerBlock = (props) => {
 
 
 const PlayerWidget = (props) => {
-    const { placement, color } = props;
+    const { pos, player } = props;
+    const { state: { colorsPos } } = useContext(GameContext);
+    const color = colorsPos[pos];
+
     return (
         <Container
             color={color}
-            placement={placement}>
-            <PlayerBlock {...props}/>
-            <DiceBlock {...props}/>
+            direction={Placement[pos]}>
+            <PlayerBlock
+                player={player}/>
+            <DiceBlock
+                pos={pos}
+                color={color}/>
         </Container>
     )
 };
 
-PlayerWidget.Placement = Placement;
 
 PlayerWidget.propTypes = {
     pos: PropTypes.string,
     player: PropTypes.object,
-    activePlayer: PropTypes.object,
-    placement: PropTypes.string,
 };
 
 export default PlayerWidget;

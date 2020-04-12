@@ -22,12 +22,12 @@ const PathBlocks = (props) => {
         <SquareWrapper direction={containerDirection}>
             {ranges.map((row, index) => (
                 <FlexContainer key={index} direction={rowDirection}>
-                    {row.map((tokenPos) => (
+                    {row.map((blockPos) => (
                         <Block
-                            tokenPos={tokenPos}
-                            key={tokenColorPos + tokenPos}
+                            blockPos={blockPos}
+                            key={tokenColorPos + blockPos}
                             tokenColorPos={tokenColorPos}
-                            currentTokenPos={tokenPos}/>
+                        />
                     ))}
                 </FlexContainer>
             ))}
