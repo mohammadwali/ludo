@@ -2,8 +2,6 @@ import Color from 'color';
 import styled, { keyframes } from 'styled-components';
 import { ColorMap } from '../constant';
 
-console.log(Color);
-
 export const createPulseAnimation = (color) => keyframes`
     0% {
       background-color:  ${color};
@@ -169,4 +167,33 @@ export const FloatingButton = styled.button`
     &:hover, &:active{
         outline: none;
     }
+`;
+
+export const HorizontalArrow = styled.div`
+    // pointer-events:none;
+    position: absolute;
+    height: 0px; width: 0px;
+    border: 15px solid;
+    border-color: 
+        ${props => ColorMap[props.color]}
+        ${props => ColorMap[props.color]}
+        transparent
+        transparent;
+    top: 30%;
+    left: 47%;
+    transform: rotate(${props => props.direction === 'left' ? '225deg' : '45deg'}); 
+    
+    &:before {
+        content: '';
+        position: absolute;
+        top: 0px; 
+        right: 0px;
+        display: block;
+        height: 15px;
+        width: 16px;
+        background-color: ${props => ColorMap[props.color]};
+        transform: 
+            rotate(-45deg) 
+            translate(3px);
+     }
 `;

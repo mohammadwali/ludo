@@ -9,9 +9,9 @@ import { getNextStepPath, getTokenIndexInPath, isSafeSpot, isTokenInPath } from 
 
 export const useTokenStepper = (tokenColorPos) => {
     let tokenMoveIntervalId = useRef(null);
-    const { state: { tokensPos }, moveToken, switchToNextBlock } = useContext(GameContext);
+    const { state: { tokensPos, lastDie }, moveToken, switchToNextBlock } = useContext(GameContext);
 
-    const stepper = useCallback((step, tokenIndex) => {
+    const stepper = useCallback((step, tokenIndex, doneFn = () => null) => {
         if (tokenMoveIntervalId.current) {
             return;
         }
@@ -22,12 +22,11 @@ export const useTokenStepper = (tokenColorPos) => {
         if (!isTokenInPath(tokenColorPos, currentTokenPosition) && step === 6) {
             UiSounds.tokenEnter.play();
             moveToken({ colorPos: tokenColorPos, index: tokenIndex, pos: homeBlock });
+            doneFn();
             return;
         }
 
         const tokenIndexInPath = getTokenIndexInPath(tokenColorPos, currentTokenPosition);
-
-
         const nextSteps = getNextStepPath(tokenColorPos, tokenIndexInPath, step);
         const update = () => {
 
@@ -41,22 +40,27 @@ export const useTokenStepper = (tokenColorPos) => {
 
             clearInterval(tokenMoveIntervalId.current);
             tokenMoveIntervalId.current = null;
+            doneFn();
 
             const currentPathPointIndex = tokenIndexInPath + step;
-            if (isSafeSpot(BoardPath[tokenColorPos][currentPathPointIndex])) {
+            const enteredSafeSpot = isSafeSpot(BoardPath[tokenColorPos][currentPathPointIndex]);
+
+            if (enteredSafeSpot) {
                 UiSounds.safeBlockEnter.play();
             }
 
-            setTimeout(() => {
-                switchToNextBlock();
-                UiSounds.playerSwitched.play();
-            }, 500);
+            if (lastDie[0] !== 6) {
+                setTimeout(() => {
+                    switchToNextBlock();
+                    UiSounds.playerSwitched.play();
+                }, 500);
+            }
         };
 
         update();
         tokenMoveIntervalId.current = setInterval(update, 250);
 
-    }, [moveToken, switchToNextBlock, tokenColorPos, tokensPos]);
+    }, [moveToken, lastDie, switchToNextBlock, tokenColorPos, tokensPos]);
 
     return { stepper }
 };

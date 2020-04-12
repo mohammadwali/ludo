@@ -1,4 +1,4 @@
-import React, { useContext, memo } from 'react';
+import React, { useContext, memo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash/object';
 
@@ -9,17 +9,25 @@ import { useTokenStepper } from '../../../hooks/useTokenStepper';
 
 const Token = memo((props) => {
     const { tokenColorPos, index, withPlaceholder, blockPos, ...rest } = props;
-    const { state: { tokensPos, colorsPos, die, currentBlock } } = useContext(GameContext);
+    const { state: { tokensPos, colorsPos, die, currentBlock }, resetDie } = useContext(GameContext);
 
     const currentTokenColor = get(colorsPos, [tokenColorPos]);
     const currentTokenPosition = get(tokensPos, [tokenColorPos, index], null);
     const { stepper } = useTokenStepper(tokenColorPos);
 
+    const handleClick = () => {
+        if (tokenColorPos === currentBlock && die !== -1) {
+            stepper(die, index, () => {
+                resetDie({ resetHistory: die !== 6 });
+            });
+        }
+    };
+
     if (currentTokenPosition === blockPos) {
         return (
             <TokenItem
                 {...rest}
-                onClick={() => tokenColorPos === currentBlock && stepper(die, index)}
+                onClick={handleClick}
                 color={currentTokenColor}/>
         );
     }

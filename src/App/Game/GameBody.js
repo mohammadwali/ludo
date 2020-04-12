@@ -18,6 +18,7 @@ const Row = styled(FlexContainer)`
     width: 100%;
     justify-content: space-between;
     margin: ${props => props.margin};
+    position: relative;
 `;
 
 const PrizeTitleHeading = styled.h3`

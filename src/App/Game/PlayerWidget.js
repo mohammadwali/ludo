@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import classNames from 'classnames';
 
 import 'react-dice-complete/dist/react-dice-complete.css'
 import MicrophoneIcon from '../../components/MicrophoneIcon';
-import { Card, FlexContainer, DiceContainer, createPulseAnimation } from '../../components/styled';
+import { Card, FlexContainer, DiceContainer, createPulseAnimation, HorizontalArrow } from '../../components/styled';
 import { ColorMap, TokenColorPos } from '../../constant';
 
 import { InlineIcon } from '@iconify/react';
@@ -76,12 +77,17 @@ const PlayerMicrophoneIcon = styled(FlexContainer)`
     margin-left: .25em;
 `;
 
-const Placement = {
-    [TokenColorPos.TOP_LEFT]: 'row',
-    [TokenColorPos.BOTTOM_LEFT]: 'row',
+const FlexDirection = {
+    left: 'row',
+    right: 'row-reverse',
+};
 
-    [TokenColorPos.TOP_RIGHT]: 'row-reverse',
-    [TokenColorPos.BOTTOM_RIGHT]: 'row-reverse',
+const Placement = {
+    [TokenColorPos.TOP_LEFT]: 'left',
+    [TokenColorPos.BOTTOM_LEFT]: 'left',
+
+    [TokenColorPos.TOP_RIGHT]: 'right',
+    [TokenColorPos.BOTTOM_RIGHT]: 'right',
 };
 
 const DiceBlock = (props) => {
@@ -135,19 +141,27 @@ const PlayerBlock = (props) => {
 
 const PlayerWidget = (props) => {
     const { pos, player } = props;
-    const { state: { colorsPos, activeBlock } } = useContext(GameContext);
+    const { state: { colorsPos, activeBlock, currentBlock, die } } = useContext(GameContext);
     const color = colorsPos[pos];
+    const placement = Placement[pos];
+    const shouldShowArrow = currentBlock === pos && die === -1;
 
     return (
         <Container
             color={color}
-            direction={Placement[pos]}
+            direction={FlexDirection[placement]}
             active={activeBlock === pos}>
             <PlayerBlock
                 player={player}/>
             <DiceBlock
                 pos={pos}
                 color={color}/>
+            {shouldShowArrow && (
+                <HorizontalArrow
+                    color={color}
+                    direction={placement}
+                />
+            )}
         </Container>
     )
 };

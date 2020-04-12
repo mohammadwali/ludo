@@ -6,6 +6,7 @@ export const GameContext = createContext();
 const ActionType = {
     SET_GAME: 'set-game',
     SET_DIE: 'set-die',
+    RESET_DIE: 'reset-die',
     SET_ACTIVE_BLOCK: 'set-active-block',
     SET_CURRENT_BLOCK: 'set-current-block',
     UPDATE_TOKEN_POS: 'update-token-pos',
@@ -19,6 +20,7 @@ const initialState = {
     colorsPos: {},
 
     die: -1,
+
     lastDie: [],
     activePlayer: { id: -1 },
 
@@ -42,7 +44,15 @@ const reducer = (state, action) => {
         return {
             ...state,
             die: payload.die,
-            lastDie: payload.die > 1 ? state.lastDie.concat(payload.die) : [],
+            lastDie: [payload.die, ...state.lastDie],
+        }
+    }
+
+    if (type === ActionType.RESET_DIE) {
+        return {
+            ...state,
+            die: -1,
+            lastDie: payload.resetHistory ? [] : [...state.lastDie],
         }
     }
 
@@ -78,6 +88,9 @@ const reducer = (state, action) => {
             ...state,
             activeBlock: null,
             currentBlock: payload.block,
+
+            die: -1,
+            lastDie: []
         }
     }
 
@@ -102,6 +115,16 @@ export const GameProvider = ({ children }) => {
             dispatch({
                 type: ActionType.SET_DIE,
                 payload: { die }
+            });
+        },
+        [dispatch]
+    );
+
+    const resetDie = useCallback(
+        ({ resetHistory }) => {
+            dispatch({
+                type: ActionType.RESET_DIE,
+                payload: { resetHistory }
             });
         },
         [dispatch]
@@ -151,6 +174,7 @@ export const GameProvider = ({ children }) => {
         state,
         setGame,
         setDie,
+        resetDie,
         moveToken,
         setActiveBlock,
         setCurrentBlock,
