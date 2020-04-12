@@ -15,8 +15,6 @@ const Container = styled.h4`
 const CopyrightNotice = memo((props) => {
     const year = new Date().getFullYear();
 
-    console.log('rendering...');
-
     return (
         <Container>
             Copyright © {year} &nbsp;

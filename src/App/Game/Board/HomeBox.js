@@ -30,8 +30,6 @@ const Container = styled(CenteredBox)`
 const HomeContainer = memo((props) => {
     const { currentTokenColor, getTokenBlockPos, tokenColorPos } = props;
 
-    console.log('rendering home', tokenColorPos);
-
     return (
         <Container color={currentTokenColor}>
             <Circle color={currentTokenColor}>
