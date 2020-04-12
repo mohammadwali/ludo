@@ -2,6 +2,7 @@ import bxAward from '@iconify/icons-bx/bx-award';
 import { InlineIcon } from '@iconify/react';
 import React, { useContext } from 'react';
 import styled from 'styled-components';
+import CopyrightNotice from '../../components/CopyrightNotice';
 import MicrophoneIcon from '../../components/MicrophoneIcon';
 import { FlexContainer, FloatingButton } from '../../components/styled';
 import { TokenColorPos } from '../../constant';
@@ -51,9 +52,7 @@ const PrizeTitle = (props) => {
 };
 
 export const GameBody = (props) => {
-    const { state: { players, colorsPos, activePlayer }, state } = useContext(GameContext);
-
-    // console.log('rendered...', state);
+    const { state: { players, colorsPos, activePlayer } } = useContext(GameContext);
 
     return (
         <GameWrapper direction={'column'}>
@@ -90,6 +89,7 @@ export const GameBody = (props) => {
                     activePlayer={activePlayer}
                     player={players[1]}/>
             </Row>
+            <CopyrightNotice/>
             <FloatingButton>
                 <MicrophoneIcon isEnabled={false} width={30}/>
             </FloatingButton>
